@@ -34,6 +34,7 @@ The Data Source comes from Los Angeles Police Department (LAPD) and it is availa
 
 
 ```{r, echo = FALSE}
+#| echo: false
 #| vscode: {languageId: r}
 library(jsonlite)
 library(tibble)
@@ -47,8 +48,8 @@ json_data <- fromJSON("https://data.lacity.org/resource/2nrs-mtv8.json")
 data <- as_tibble(json_data)
 ```
 
-
-```{r, echo = FALSE}
+```{r, results = 'asis'}
+#| echo: false
 #| vscode: {languageId: r}
 glimpse(data)
 ```
