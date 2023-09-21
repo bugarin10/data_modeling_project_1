@@ -1,0 +1,56 @@
+---
+title: 'Data Modeling Project 1'
+jupyter: ir
+---
+
+#Proposal for Data Modeling
+
+
+1. Jiwon Shin
+2. Hoachong (Harry) Xia
+3. Xueqing (Annie) Wu
+4. Rafael Dávila Bugarín
+
+### Data Set
+
+The Data Source comes from Los Angeles Police Department (LAPD) and it is available in the following [link](https://data.lacity.org/A-Safe-City/Crime-Data-from-2010-to-Present/y8tr-7khq). In addition, migration data will be merged to answer one of the research questions, the data of migration comes from this [link](https://www.census.gov/data/tables/2020/demo/geographic-mobility/county-to-county-migration-2016-2020.html) and contains County-to-County migration flows from 2016 to 2020.
+
+#### Data Set Description
+
+<div style="text-align: justify">This dataset represents recorded crime incidents in the City of Los Angeles dating from 2020. The source of this data is transcriptions from original crime reports, which are originally documented on paper. Therefore, it is important to acknowledge that there may exist some inaccuracies or errors within the dataset. In certain cases, location information is missing and indicated as (0°, 0°). To safeguard individual privacy, address details are truncated to the closest hundred block. The accuracy of this data is contingent on the accuracy of the information stored in the database. Please feel free to raise any questions or concerns in the comments section.</div>
+
+#### Research questions
+
+1. Does time frames really affect the crime rate in LA in 2022? (e.g. day, night, morning, afternoon, evening)
+2. Does the crime rate in LA in 2021 affect the migration rate in 2022?
+
+### Glimse of the data
+
+
+
+
+
+
+
+
+```{r, echo = FALSE}
+#| vscode: {languageId: r}
+library(jsonlite)
+library(tibble)
+library(tidyverse)
+library(dplyr)
+
+# Read the JSON data from a URL
+json_data <- fromJSON("https://data.lacity.org/resource/2nrs-mtv8.json")
+
+# Convert the JSON data to a tibble
+data <- as_tibble(json_data)
+```
+
+
+```{r, echo = FALSE}
+#| vscode: {languageId: r}
+glimpse(data)
+```
+
+
