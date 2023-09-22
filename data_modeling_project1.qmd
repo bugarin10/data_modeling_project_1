@@ -3,35 +3,65 @@ title: 'Data Modeling Project 1'
 jupyter: ir
 ---
 
-#Proposal for Data Modeling
+# Proposal for Data Modeling
 
 
 1. Jiwon Shin
-2. Hoachong (Harry) Xia
+2. Haochong (Harry) Xia
 3. Xueqing (Annie) Wu
 4. Rafael Dávila Bugarín
 
-### Data Set
+# Data Set 1
 
-The Data Source comes from Los Angeles Police Department (LAPD) and it is available in the following [link](https://data.lacity.org/A-Safe-City/Crime-Data-from-2010-to-Present/y8tr-7khq). In addition, migration data will be merged to answer one of the research questions, the data of migration comes from this [link](https://www.census.gov/data/tables/2020/demo/geographic-mobility/county-to-county-migration-2016-2020.html) and contains County-to-County migration flows from 2016 to 2020.
+## Data Set
+The source of this dataset is Kaggle, and the data can be found at the following [link](https://www.kaggle.com/datasets/nelgiriyewithana/global-youtube-statistics-2023).
 
-#### Data Set Description
+### Data Set Description
 
-<div style="text-align: justify">This dataset represents recorded crime incidents in the City of Los Angeles dating from 2020. The source of this data is transcriptions from original crime reports, which are originally documented on paper. Therefore, it is important to acknowledge that there may exist some inaccuracies or errors within the dataset. In certain cases, location information is missing and indicated as (0°, 0°). To safeguard individual privacy, address details are truncated to the closest hundred block. The accuracy of this data is contingent on the accuracy of the information stored in the database. Please feel free to raise any questions or concerns in the comments section.</div>
+<div style="text-align: justify"> A comprehensive dataset with information on YouTube's top creators, including subscribers, views, upload frequency, country of origin, and earnings, is presented in this dataset.</div>
 
 #### Research questions
 
-1. Does time frames really affect the crime rate in LA in 2022? (e.g. day, night, morning, afternoon, evening)
-2. Does the crime rate in LA in 2021 affect the migration rate in 2022?
+1. How does the number of subscribers, views, uploads, and region factors have an impact on the highest monthly earnings for YouTube channels?
+    a. Outcome variable: the highest monthly earnings for each YouTube channel
+    b. Model to use: multiple linear regression
+2. How likely the Youtube channel is going to earn more than $100K given the views, subscribers, region factors?[^1]
+    a. Outcome variable: Whether the Youtube channel can have more than $100K earning for the highest monthly earnings (the likelihood)
+    b. Model to use: logistic regression
 
+[^1]: In the first Appendix 1 you can find the plot of the Montly revenue distribution in USD. These are the cuts  analyzed: 839 out of 995 earns < $1m, 339 out of 995 earns <$100K, 192 out of 995 earns <$10K, 170 out of 995 earns <$1k, 89 out of 995 earns $0)
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(utils)
+
+Youtube_Stats <- read.csv("/Users/rafaeldavila/Documents/Duke/Sem1/702_Data Modeling/Project/Global YouTube Statistics.csv"
+                    ,header = TRUE, sep = ","
+                    )
+glimpse(Youtube_Stats)
+```
+
+
+
+
+
+
+### Data Set 2
+
+The Data Source comes from Los Angeles Police Department (LAPD) and it is available in the following [link](https://data.lacity.org/Public-Safety/Crime-Data-from-2020-to-Present/2nrs-mtv8).
+
+#### Data Set Description
+
+<div style="text-align: justify">This dataset represents recorded crime incidents in the City of Los Angeles dating from 2020. The source of this data is transcriptions from original crime reports, which are originally documented on paper. Therefore, it is important to acknowledge that there may exist some inaccuracies or errors within the dataset. In certain cases, location information is missing and indicated as (0°, 0°). To safeguard individual privacy, address details are truncated to the closest hundred block. The accuracy of this data is contingent on the accuracy of the information stored in the database.</div>
+
+#### Research questions
+
+1. Does crime really happened more often after 7pm? How race, age, gender and location affects.  The specific case of Los Angeles City, Cal. (2022)
+2. What variables determine if a crime will be commited with or without violence? The specific case of Los Angeles City, Cal. (2022) (The team is still deciding if the types are going to merge to create a dichotomous variable or several applying an multinomial logit.)
+
+    
 ### Glimse of the data
-
-
-
-
-
-
-
 
 ```{r, echo = FALSE}
 #| echo: false
@@ -52,6 +82,20 @@ data <- as_tibble(json_data)
 #| echo: false
 #| vscode: {languageId: r}
 glimpse(data)
+```
+
+
+### Appendix 1
+
+```{r, warning=FALSE}
+#| echo: false
+#| warning: false
+ggplot(Youtube_Stats, aes(x = highest_monthly_earnings)) +
+  geom_histogram(fill = "cadetblue", color = "cadetblue") +
+  scale_x_continuous(labels = scales::comma_format(scale = 0.001)) +
+  labs(title = "Distribution of Highest Monthly Earnings", 
+       x = "Monthly Earnings (in thousands USD)", 
+       y = "Count")+theme_bw()
 ```
 
 
